@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* .body flex-grow-1 px-3{
+   padding-right: -1px !important; 
+    padding-left: -1px !important;
+} */
+
+/* .px-3 {
+    padding-right: -1px !important; 
+    padding-left: -1px !important; 
+} */
+.px-3 {
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+}
+
+.sidebar-nav {
+  font-size: 14px; /* Adjust size here */
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar-nav .nav-link {
+  font-size: 14px;
+  font-weight: 200;
+  color: #d7d4d4;
+}
+
+.theheading{
+  white-space: pre;
+  font-size: 24px;
+  font-family: 'Segoe UI Light','Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.sidebar-nav .nav-link:hover {
+  color: #0d6efd; /* Optional hover effect */
+}
+
+/* .sidebar.sidebar-narrow-unfoldable {
+  width: 56px !important;
+  transition: width 0.3s ease;
+}*/
+
+/* .sidebar {
+     --cui-sidebar-bg: 	#5e646c;
+     color: antiquewhite;
+}  */
+
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 100%;
+    }
+}
+
+/* html {
+  scroll-behavior: smooth;
+}
+
+.smooth-wrapper {
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.smooth-content {
+  will-change: transform;
+} */
+
