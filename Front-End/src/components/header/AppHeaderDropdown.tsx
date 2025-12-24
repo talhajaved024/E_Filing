@@ -27,7 +27,7 @@ import axios from 'axios';
 import none_avatar from './../../assets/images/avatars/10.png';
 import { AuthService } from '../../services/AuthService';
 
-const API_BASE_URL = 'http://localhost:8080/api/images';
+const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/images`;
 const userName = sessionStorage.getItem("userName");
 const AppHeaderDropdown: FC = () => {
   const [imageUrl, setImageUrl] = useState<string>(none_avatar);

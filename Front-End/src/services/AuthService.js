@@ -31,7 +31,7 @@ export class AuthService {
   static logout(triggeredByClose = false) {
     const accessToken = sessionStorage.getItem("accessToken");
     const refreshToken = sessionStorage.getItem("refreshToken") || localStorage.getItem("refreshToken");
-    const logoutUrl = "http://localhost:8080/api/auth/logout";
+    const logoutUrl = `${process.env.REACT_APP_API_URL}/api/auth/logout`;
 
     if (!refreshToken) {
       this.clearAllStorage();

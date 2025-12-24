@@ -6,7 +6,7 @@ import notify from 'devextreme/ui/notify';
 import axios from 'axios';
 import 'devextreme/dist/css/dx.light.css';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = `${process.env.REACT_APP_API_URL}/api`;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -87,7 +87,7 @@ const User = () => {
 
   const loadRoles = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8080/Lookup/designation');
+      const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/Lookup/designation`);
       setRoles(response.data || []);
     } catch (error) {
       notify(`Error loading roles: ${error.message}`, 'error', 3000);
@@ -97,7 +97,7 @@ const User = () => {
 
   const loadDepartment = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8080/Lookup/departments');
+      const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/Lookup/departments`);
       setDepartment(response.data || []);
     } catch (error) {
       notify(`Error loading departments: ${error.message}`, 'error', 3000);
@@ -107,7 +107,7 @@ const User = () => {
 
   const loadOrganization = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8080/Lookup/organizations');
+      const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/Lookup/organizations`);
       setOrganization(response.data || []);
     } catch (error) {
       notify(`Error loading organizations: ${error.message}`, 'error', 3000);

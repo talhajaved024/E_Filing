@@ -71,19 +71,19 @@ const Register: FC = () => {
       const token = sessionStorage.getItem('refreshToken');
       
       try {
-        const orgResponse = await axios.get('http://localhost:8080/Lookup/organizations', {
+        const orgResponse = await axios.get(`${process.env.REACT_APP_API_URL}/Lookup/organizations`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrganizations(orgResponse.data);
         setDropdownLoading(prev => ({ ...prev, org: false }));
 
-        const deptResponse = await axios.get('http://localhost:8080/Lookup/departments', {
+        const deptResponse = await axios.get(`${process.env.REACT_APP_API_URL}/Lookup/departments`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDepartments(deptResponse.data);
         setDropdownLoading(prev => ({ ...prev, dept: false }));
 
-        const desigResponse = await axios.get('http://localhost:8080/Lookup/designation', {
+        const desigResponse = await axios.get(`${process.env.REACT_APP_API_URL}/Lookup/designation`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setDesignations(desigResponse.data);
@@ -117,7 +117,7 @@ const Register: FC = () => {
 
     try {
       // Step 1: Register the user first
-      await axios.post('http://localhost:8080/api/auth/register', {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
         username,
         user_full_name: userfullname,
         email,
@@ -139,7 +139,7 @@ const Register: FC = () => {
 
         const refreshToken = sessionStorage.getItem("refreshToken");
 
-        await axios.post('http://localhost:8080/api/images/upload', formData, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/images/upload`, formData, {
           headers: {
             "Authorization": `Bearer ${refreshToken}`,
             'Content-Type': 'multipart/form-data',

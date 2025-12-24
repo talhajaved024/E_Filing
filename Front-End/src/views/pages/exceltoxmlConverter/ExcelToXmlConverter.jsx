@@ -31,7 +31,7 @@ const ExcelToXmlConverter = () => {
   const [message, setMessage] = useState({ type: '', text: '' });
   const [availableDates, setAvailableDates] = useState([]);
 
-  const API_BASE_URL = 'http://localhost:8080/api/excel';
+  const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/excel`;
 
   const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -75,6 +75,8 @@ axiosInstance.interceptors.response.use(
   }, [selectedDate]);
 
   const loadAvailableDates = async () => {
+    //console.log(`ENV:=> ${process.env.REACT_APP_API_URL}`);
+     
     try {
       const response = await axiosInstance.get(`/dates`);
       setAvailableDates(response.data);

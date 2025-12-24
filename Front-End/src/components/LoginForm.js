@@ -39,7 +39,7 @@ class LoginForm extends Component {
     this.setState({ loading: true });
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", { 
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, { 
         username: username.trim(), 
         password: password.trim()
       });

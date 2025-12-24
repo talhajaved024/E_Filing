@@ -18,7 +18,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 // Configure PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.js`;
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = `${process.env.REACT_APP_API_URL}/api`;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
