@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { CRow, CCol, CCard, CCardHeader, CCardBody } from '@coreui/react'
 import { rgbToHex } from '@coreui/utils'
 import { DocsLink } from '../../../components'
+//import ProjectRegistration from '../../pages/projectRegistration/ProjectRegisteration'
 
 interface ThemeColorProps {
   className?: string;
@@ -88,6 +89,12 @@ const Colors = () => {
               <h6>Brand Dark Color</h6>
             </ThemeColor>
           </CRow>
+        </CCardBody>
+
+      </CCard>
+      <CCard>
+        <CCardBody>
+          {/* <ProjectRegistration/> */}
         </CCardBody>
       </CCard>
     </>

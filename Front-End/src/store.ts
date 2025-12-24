@@ -1,4 +1,5 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import authReducer from './AuthSlice';
 
 interface InitialState {
   sidebarShow: boolean
@@ -25,6 +26,7 @@ export const { setSidebarState } = slice.actions
 export const store = configureStore({
   reducer: {
     sidebar: slice.reducer,
+    auth: authReducer
   },
 })
 

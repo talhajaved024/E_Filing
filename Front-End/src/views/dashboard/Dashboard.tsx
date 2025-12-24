@@ -51,6 +51,10 @@ import avatar5 from '../../assets/images/avatars/5.jpg';
 import avatar6 from '../../assets/images/avatars/6.jpg';
 
 import WidgetsBrand from '../widgets/WidgetsBrand';
+import TaskAssignmentSummary from './TaskAssignmentSummary';
+import BugsAssignmentSummary from './BugsAssignmentSummary';
+import AdminUserBugAssignment from './AdminUserBugAssignment';
+import AdminReportTaskAssignment from './AdminReportTaskAssignment'
 import WidgetsDropdown from '../widgets/WidgetsDropdown';
 
 interface ProgressExample {
@@ -104,7 +108,7 @@ interface TableExample {
   };
   activity: string;
 }
-
+const adminUser = sessionStorage.getItem("adminUser");
 const Dashboard: React.FC = () => {
   const random = (min: number, max: number): number => Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -233,9 +237,10 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <WidgetsDropdown />
+      {/* <WidgetsDropdown />
       <CCard className="mb-4">
         <CCardBody>
+         
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
@@ -358,10 +363,23 @@ const Dashboard: React.FC = () => {
           </CRow>
         </CCardFooter>
       </CCard>
+       
 
       <WidgetsBrand withCharts />
-
+      */}
       <CRow>
+        <CCol> 
+
+          {adminUser==="true"?(<AdminReportTaskAssignment/>):(<TaskAssignmentSummary/>)}
+        </CCol>
+        <CCol>
+          {adminUser==="true"?(<AdminUserBugAssignment/>):(<BugsAssignmentSummary/>)}
+        </CCol>
+      </CRow>
+      
+      {/* <CRow className="mt-3">
+
+         
         <CCol xs>
           <CCard className="mb-4">
             <CCardHeader>Traffic {' & '} Sales</CCardHeader>
@@ -504,7 +522,7 @@ const Dashboard: React.FC = () => {
             </CCardBody>
           </CCard>
         </CCol>
-      </CRow>
+      </CRow> */}
     </>
   )
 };

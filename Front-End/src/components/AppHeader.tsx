@@ -13,7 +13,7 @@ import {
 
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
+import {cilList, cilMenu } from '@coreui/icons'
 
 // Custom components
 import { AppBreadcrumb } from './index'
@@ -49,7 +49,10 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
         </CHeaderBrand>
 
         {/* Navigation links (desktop) */}
-        <CHeaderNav className="d-none d-md-flex me-auto">
+
+        {/* Below Commented for Excel to  XML Conversion Project*/}
+
+        {/* <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>
               Dashboard
@@ -61,7 +64,9 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
           <CNavItem>
             <CNavLink href="#">Settings</CNavLink>
           </CNavItem>
-        </CHeaderNav>
+        </CHeaderNav> */}
+
+        {/* Above Commented for Excel to  XML Conversion Project*/}
 
         {/* Header icons */}
         {/* <CHeaderNav>
@@ -97,11 +102,11 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
 
         {/* Profile Dropdown */}
         <CHeaderNav className="ms-2 align-items-center gap-1">
-          <AppHeaderDropdownNotifications></AppHeaderDropdownNotifications>
-          <CNavLink href="#">
+          {/* <AppHeaderDropdownNotifications></AppHeaderDropdownNotifications> */}
+          {/* <CNavLink href="#">
               <CIcon icon={cilList} size="lg" />
-            </CNavLink>
-          <AppHeaderDropdownMessage/>
+            </CNavLink> */}
+          {/* <AppHeaderDropdownMessage/> */}
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>

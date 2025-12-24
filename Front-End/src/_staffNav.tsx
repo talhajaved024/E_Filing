@@ -7,7 +7,6 @@ import {
   cilCalculator,
   cilChartPie,
   cilClipboard,
-  cilCloud,
   cilCursor,
   cilDescription,
   cilDrop,
@@ -21,13 +20,12 @@ import {
   cilStar,
   cilTask,
   cilText,
-  cilTransfer,
   cilUserFollow,
   cilUserPlus,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
-const _nav = [
+const _staffNav = [
   {
     component: CNavItem,
     name: 'Dashboard',
@@ -71,16 +69,16 @@ const _nav = [
     to: '/base',
     icon: <CIcon icon={cilShieldAlt} customClassName="nav-icon" />,
     items: [
-      {
-        component: CNavItem,
-    name: 'Project & Members',
-    to: '/projectRegistration',
-    icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
-    // badge: {
-    //   color: 'info',
-    //   text: 'NEW',
-    // }
-    },
+    //   {
+    //     component: CNavItem,
+    // name: 'Project & Members',
+    // to: '/projectRegistration',
+    // icon: <CIcon icon={cilBriefcase} customClassName="nav-icon" />,
+    // // badge: {
+    // //   color: 'info',
+    // //   text: 'NEW',
+    // // }
+    // },
       {
         component: CNavItem,
         name: 'User Management',
@@ -91,19 +89,19 @@ const _nav = [
     ],
   },
 
-  {
-    component: CNavItem,
-    name: 'Observations',
-    to: 'observations/Observations',
-    icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
-  },
+//   {
+//     component: CNavItem,
+//     name: 'Observations',
+//     to: 'observations/Observations',
+//     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
+//   },
 
-  {
-    component: CNavItem,
-    name: 'Tasks',
-    to: 'tasks/TaskAssignment',
-    icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
-  },
+//   {
+//     component: CNavItem,
+//     name: 'Tasks',
+//     to: 'tasks/TaskAssignment',
+//     icon: <CIcon icon={cilTask} customClassName="nav-icon" />,
+//   },
 
 
   {
@@ -113,24 +111,6 @@ const _nav = [
     icon: <CIcon icon={cilBug} customClassName="nav-icon" />,
   },
 
-
-  {
-    component: CNavItem,
-    name: 'Weather',
-    to: 'weather/MeteoblueWeatherDashboard',
-    icon: <CIcon icon={cilCloud} customClassName="nav-icon" />,
-  },
-
-  {
-    component: CNavItem,
-    name: 'Excel to Xml',
-    to: 'ExceltoXml/conversion',
-    icon: <CIcon icon={cilTransfer} customClassName="nav-icon" />,
-  },
-
-  //'ExceltoXml/conversion'
-
-  
   
   // {
   //   component: CNavTitle,
@@ -294,12 +274,12 @@ const _nav = [
   //     },
   //   ],
   // },
-  {
-    component: CNavItem,
-    name: 'Charts',
-    to: '/charts',
-    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
-  },
+//   {
+//     component: CNavItem,
+//     name: 'Charts',
+//     to: '/charts',
+//     icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+//   },
 
   {
     component: CNavItem,
@@ -308,87 +288,87 @@ const _nav = [
     icon: <CIcon icon={cilUserPlus} customClassName="nav-icon" />,
   },
 
-  {
-    component: CNavItem,
-    name: 'Text Editor',
-    to: '/TextEditorRoute',
-    icon: <CIcon icon={cilText} customClassName="nav-icon" />,
-  },
+//   {
+//     component: CNavItem,
+//     name: 'Text Editor',
+//     to: '/TextEditorRoute',
+//     icon: <CIcon icon={cilText} customClassName="nav-icon" />,
+//   },
 
-  {
-    component: CNavItem,
-    name: 'Prescription Generator',
-    to: '/PrescriptionGenerator',
-    icon: <CIcon icon={cilHospital} customClassName="nav-icon" />,
-  },
+//   {
+//     component: CNavItem,
+//     name: 'Prescription Generator',
+//     to: '/PrescriptionGenerator',
+//     icon: <CIcon icon={cilHospital} customClassName="nav-icon" />,
+//   },
 
-  {
-    component: CNavItem,
-    name: 'Prescription Generator',
-    to: '/PrescriptionGeneratorNew',
-    icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
-  },
-
-  
+//   {
+//     component: CNavItem,
+//     name: 'Prescription Generator',
+//     to: '/PrescriptionGeneratorNew',
+//     icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
+//   },
 
   
+
+  
   
 
-  {
-    component: CNavGroup,
-    name: 'Icons',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'CoreUI Free',
-        to: '/icons/coreui-icons',
-        badge: {
-          color: 'success',
-          text: 'NEW',
-        },
-      },
-       {
-        component: CNavItem,
-        name: 'Font Awesome Icons',
-        to: '/icons/fontawesome-icons',
-        badge: {
-          color: 'success',
-          text: 'NEW',
-        },
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Flags',
-        to: '/icons/flags',
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Brands',
-        to: '/icons/brands',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Dev Extreme Examples',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-       {
-        component: CNavItem,
-        name: 'Data Grid Demo',
-        icon:<CIcon icon={cilBell} customClassName="nav-icon" />,
-        to: '/views/demoGrid',
-        // badge: {
-        //   color: 'success',
-        //   text: 'NEW',
-        // },
-      },
-      {
-        component: CNavItem,
-        name: 'Dev Extreme Charts',
-        to: '/views/demoCharts',
-      },]},
+//   {
+//     component: CNavGroup,
+//     name: 'Icons',
+//     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+//     items: [
+//       {
+//         component: CNavItem,
+//         name: 'CoreUI Free',
+//         to: '/icons/coreui-icons',
+//         badge: {
+//           color: 'success',
+//           text: 'NEW',
+//         },
+//       },
+//        {
+//         component: CNavItem,
+//         name: 'Font Awesome Icons',
+//         to: '/icons/fontawesome-icons',
+//         badge: {
+//           color: 'success',
+//           text: 'NEW',
+//         },
+//       },
+//       {
+//         component: CNavItem,
+//         name: 'CoreUI Flags',
+//         to: '/icons/flags',
+//       },
+//       {
+//         component: CNavItem,
+//         name: 'CoreUI Brands',
+//         to: '/icons/brands',
+//       },
+//     ],
+//   },
+//   {
+//     component: CNavGroup,
+//     name: 'Dev Extreme Examples',
+//     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+//     items: [
+//        {
+//         component: CNavItem,
+//         name: 'Data Grid Demo',
+//         icon:<CIcon icon={cilBell} customClassName="nav-icon" />,
+//         to: '/views/demoGrid',
+//         // badge: {
+//         //   color: 'success',
+//         //   text: 'NEW',
+//         // },
+//       },
+//       {
+//         component: CNavItem,
+//         name: 'Dev Extreme Charts',
+//         to: '/views/demoCharts',
+//       },]},
   
   // {
   //   component: CNavGroup,
@@ -427,10 +407,10 @@ const _nav = [
   //     text: 'NEW',
   //   },
   // },
-  {
-    component: CNavTitle,
-    name: 'Extras',
-  },
+//   {
+//     component: CNavTitle,
+//     name: 'Extras',
+//   },
   // {
   //   component: CNavGroup,
   //   name: 'Pages',
@@ -466,4 +446,4 @@ const _nav = [
   // },
  ]
 
-export default _nav
+export default _staffNav

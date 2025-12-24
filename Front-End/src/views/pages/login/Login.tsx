@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -16,7 +16,7 @@ const Login: React.FC<{ onLoginSuccess: (data: any) => void }> = ({ onLoginSucce
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={8}>
+          <CCol md={4}>
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
@@ -26,21 +26,21 @@ const Login: React.FC<{ onLoginSuccess: (data: any) => void }> = ({ onLoginSucce
                   <LoginForm onLoginSuccess={onLoginSuccess} />
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              {/* <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
                     <p>
                       Only if you don't already have an account. 
                     </p>
-                    <Link to="/register">
+                     <Link to="/register">
                       <CButton color="primary" className="mt-3" active tabIndex={-1}>
                         Register Now!
                       </CButton>
-                    </Link>
+                    </Link> 
                   </div>
                 </CCardBody>
-              </CCard>
+              </CCard> */}
             </CCardGroup>
           </CCol>
         </CRow>

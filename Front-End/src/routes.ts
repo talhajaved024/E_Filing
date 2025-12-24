@@ -36,7 +36,26 @@ const Range = React.lazy(() => import('./views/forms/range/Range'))
 const Select = React.lazy(() => import('./views/forms/select/Select'))
 const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
 
+const MeteoblueWeatherDashboard = React.lazy(()=>import('./views/weather/MeteoblueWeatherDashboard'))
+
 const Charts = React.lazy(() => import('./views/charts/Charts'))
+//const Observations = React.lazy(()=> import('./views/pages/observations/Observations'))
+const Observations = React.lazy(()=> import('./views/pages/observations/Observation'))
+
+const TaskAssignment = React.lazy(()=> import('./views/pages/task/TaskAssignment'))
+
+const ExceltoXml = React.lazy(()=> import('./views/pages/exceltoxmlConverter/ExcelToXmlConverter'))
+
+const projectRegistration = React.lazy(()=> import('./views/pages/projectRegistration/ProjectRegisteration'))
+
+const UserManagement = React.lazy(()=>import('./views/pages/user/User'))
+
+const BugsReporting = React.lazy(()=>import('./views/pages/bugsReporting/BugsReporting'))
+
+const UserRegistration = React.lazy(()=>import('./views/pages/register/Register'))
+const TextEditor = React.lazy(()=>import('./views/pages/texteditor/TextEditor'))
+const PrescriptionGenerator = React.lazy(()=> import('./views/pages/prescriptiontest/PrescriptionGenerator'))
+const PrescriptionGeneratorNew = React.lazy(()=>import('./views/pages/prescriptiontest/PrescriptionGeneratorNew'))
 
 // Icons
 const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
@@ -51,9 +70,13 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const UserID = sessionStorage.getItem("UserID");
+
+// ✅ Determine home page based on UserID
+const HomeElement = UserID === "51" ? ExceltoXml : Dashboard;
 
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/', exact: true, name: 'Home', element: HomeElement },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
@@ -78,22 +101,37 @@ const routes = [
   { path: '/buttons/dropdowns', name: 'Dropdowns', element: Dropdowns },
   { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
   { path: '/charts', name: 'Charts', element: Charts },
+  { path: '/UserRegistration', name: 'User Registration', element: UserRegistration },
+  { path: '/TextEditorRoute', name: 'Text Editor', element: TextEditor },
+  { path: '/PrescriptionGenerator', name: 'Text Editor', element: PrescriptionGenerator },
+  { path: '/PrescriptionGeneratorNew', name: 'Text Editor', element: PrescriptionGeneratorNew },
+  
   { path: '/forms', name: 'Forms', element: FormControl, exact: true },
   { path: '/forms/form-control', name: 'Form Control', element: FormControl },
   { path: '/forms/select', name: 'Select', element: Select },
   { path: '/forms/checks-radios', name: 'Checks & Radios', element: ChecksRadios },
   { path: '/forms/range', name: 'Range', element: Range },
   { path: '/views/demoGrid', name: 'Demo Grid', element: GridDemo },
-   { path: '/views/demoCharts', name: 'Demo Charts', element: GridCharts },
-  
+  { path: '/views/demoCharts', name: 'Demo Charts', element: GridCharts },
   
   { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
   { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },
   { path: '/forms/layout', name: 'Layout', element: Layout },
   { path: '/forms/validation', name: 'Validation', element: Validation },
   { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
+  { path: '/projectRegistration', exact: true, name: 'Project Registration', element: projectRegistration },
+  { path: '/userManagement', exact: true, name: 'User Management', element: UserManagement },
+  
   { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
   { path: '/icons/fontawesome-icons', name: 'Font Awesome Icons', element: FontAwesomeIcons },
+
+  { path: 'observations/Observations', name: 'Observations', element: Observations },
+  { path: 'tasks/TaskAssignment', name: 'Task Assignment', element: TaskAssignment },
+   
+  { path: 'bugs/BugsReporting', name: 'Bugs Reporting', element: BugsReporting },
+
+  { path: 'weather/MeteoblueWeatherDashboard', name: 'Meteo blue Weather Dashboard', element: MeteoblueWeatherDashboard },
+  { path: 'ExceltoXml/conversion', name: 'Excel to Xml', element: ExceltoXml },
   
   { path: '/icons/flags', name: 'Flags', element: Flags },
   { path: '/icons/brands', name: 'Brands', element: Brands },

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import {
   CAvatar,
   CBadge,
@@ -21,31 +21,105 @@ import {
   cilUser,
 } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-
-import avatar8 from './../../assets/images/avatars/8.jpg';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import none_avatar from './../../assets/images/avatars/10.png';
 import { AuthService } from '../../services/AuthService';
 
+const API_BASE_URL = 'http://localhost:8080/api/images';
+const userName = sessionStorage.getItem("userName");
 const AppHeaderDropdown: FC = () => {
+  const [imageUrl, setImageUrl] = useState<string>(none_avatar);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+  useEffect(() => {
+    //console.log(userName);
+    
+    const loadUserImage = async () => {
+      const userUniqueId = sessionStorage.getItem('userUniqueId');
+      const accessToken = sessionStorage.getItem('refreshToken');
+      
+      //console.log(userUniqueId,+"--------------"+accessToken);
+      
+      if (!userUniqueId || !accessToken) return;
+
+      try {
+        const response = await axios.get(`${API_BASE_URL}/user/${userUniqueId}`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          responseType: 'blob',
+        });
+
+        const imageObjectUrl = URL.createObjectURL(response.data);
+        //console.log(imageObjectUrl);
+        
+        setImageUrl(imageObjectUrl);
+      } catch (error) {
+        console.error('Error loading user image:', error);
+      }
+    };
+
+    loadUserImage();
+
+    return () => {
+      if (imageUrl !== none_avatar && imageUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(imageUrl);
+      }
+    };
+  }, []);
+
+  const handleLogout = async (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (isLoggingOut) return; // Prevent multiple clicks
+    
+    setIsLoggingOut(true);
+
     try {
-      await AuthService.logout();
-      navigate('/login'); // redirect to login
+      // Create a timeout promise to avoid hanging
+      const logoutPromise = AuthService.logout();
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Logout timeout')), 5000)
+      );
+
+      // Race between logout and timeout
+      await Promise.race([logoutPromise, timeoutPromise]);
+      
     } catch (err) {
-      console.error('Logout failed', err);
+      console.error('Logout API call failed or timed out:', err);
+      // Continue with cleanup even if API fails
+    } finally {
+      // Always perform cleanup
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userUniqueId');
+
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+      sessionStorage.removeItem('userUniqueId');
+      
+      // Clear any session storage as well
+      sessionStorage.clear();
+      
+      // Use window.location for guaranteed navigation
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 100);
     }
   };
 
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle {...({ placement: 'bottom-end', className: 'py-0', caret: false } as any)}>
-        <CAvatar src={avatar8} size="md" />
+        <CAvatar src={imageUrl} size="md" />
       </CDropdownToggle>
       <CDropdownMenu {...({ placement: 'bottom-end', className: 'pt-0', caret: false } as any)}>
-        <CDropdownHeader className="bg-light fw-semibold py-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
+        <CDropdownHeader className="bg-light fw-semibold py-2">{userName}</CDropdownHeader>
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilBell} className="me-2" />
           Updates
           <CBadge color="info" className="ms-2">
@@ -58,8 +132,8 @@ const AppHeaderDropdown: FC = () => {
           <CBadge color="success" className="ms-2">
             42
           </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
+        </CDropdownItem> */}
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilTask} className="me-2" />
           Tasks
           <CBadge color="danger" className="ms-2">
@@ -78,8 +152,8 @@ const AppHeaderDropdown: FC = () => {
         <CDropdownItem href="#">
           <CIcon icon={cilUser} className="me-2" />
           Profile
-        </CDropdownItem>
-        <CDropdownItem href="#">
+        </CDropdownItem> */}
+        {/* <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
           Settings
         </CDropdownItem>
@@ -96,12 +170,16 @@ const AppHeaderDropdown: FC = () => {
           <CBadge color="primary" className="ms-2">
             42
           </CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
 
         <CDropdownDivider />
-        <CDropdownItem onClick={handleLogout}>
+        <CDropdownItem 
+          onClick={handleLogout} 
+          style={{ cursor: 'pointer' }}
+          disabled={isLoggingOut}
+        >
           <CIcon icon={cilLockLocked} className="me-2" />
-          Logout
+          {isLoggingOut ? 'Logging out...' : 'Logout'}
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
