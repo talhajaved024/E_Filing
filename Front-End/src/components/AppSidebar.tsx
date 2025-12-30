@@ -11,7 +11,7 @@ import { AppSidebarNav } from './AppSidebarNav'
 import navigation from '../_nav'
 import regularUserNav from '../_navRegularUser'
 import ExcelToXmlConverter from '../_navExceltoXml';
-
+import EnableDisable from '../_navEnbaleDisable'
 // Brand Icons
 import { logoNegative } from '../assets/brand/logo-negative'
 import { sygnet } from '../assets/brand/sygnet'
@@ -43,8 +43,13 @@ const AppSidebar: React.FC = () => {
   } else if (UserID === "33") {
     navItems = _staffNav; // Specific staff user
   } else if (UserID === "51") {
-    navItems = ExcelToXmlConverter; // Specific staff user
-  } else {
+    navItems = ExcelToXmlConverter;
+   } // Specific staff user
+    else if(UserID==="52")
+    {
+        navItems = EnableDisable
+    }
+   else {
     navItems = regularUserNav; // Regular users
   }
 

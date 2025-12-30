@@ -12,7 +12,7 @@ import notify from 'devextreme/ui/notify';
 import CIcon from '@coreui/icons-react'
 import { cilBell } from '@coreui/icons'
 
-const API_URL = 'http://localhost:8080/api/notifications';
+const API_URL = `${process.env.REACT_APP_API_URL}/api/notifications`;
 
 // Move axios instance outside component to prevent recreation
 const axiosInstance = axios.create({

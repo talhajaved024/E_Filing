@@ -26,6 +26,8 @@ const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
 const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
 
+const EnableDisable = React.lazy(() => import('./views//pages/enableDisableExpiry/EnableDisableExpiry'))
+
 //Forms
 const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
 const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
@@ -73,7 +75,22 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const UserID = sessionStorage.getItem("UserID");
 
 // ✅ Determine home page based on UserID
-const HomeElement = UserID === "51" ? ExceltoXml : Dashboard;
+let HomeElement ;
+
+//= UserID === "51" ? ExceltoXml : Dashboard;
+
+if (UserID==="51") {
+
+    HomeElement = ExceltoXml
+  
+}
+
+else if(UserID==="52"){
+  HomeElement = EnableDisable
+}
+else{
+  HomeElement = Dashboard
+}
 
 const routes = [
   { path: '/', exact: true, name: 'Home', element: HomeElement },
@@ -121,6 +138,9 @@ const routes = [
   { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
   { path: '/projectRegistration', exact: true, name: 'Project Registration', element: projectRegistration },
   { path: '/userManagement', exact: true, name: 'User Management', element: UserManagement },
+
+   { path: '/enableDisable', exact: true, name: 'Enable Disable Expiry', element: EnableDisable },
+  
   
   { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
   { path: '/icons/fontawesome-icons', name: 'Font Awesome Icons', element: FontAwesomeIcons },
