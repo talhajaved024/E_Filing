@@ -21,7 +21,7 @@ import { RootState, AppDispatch } from '../store'
 import { setSidebarState } from '../store'
 import '@coreui/coreui/dist/css/coreui.min.css'
 import 'simplebar-react/dist/simplebar.min.css';
-import { User } from 'lucide-react';
+//import { User } from 'lucide-react';
 
 const AppSidebar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()

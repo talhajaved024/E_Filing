@@ -44,7 +44,7 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
         {/* Brand Logo (visible on mobile) */}
         <CHeaderBrand className="mx-auto d-md-none">
           <Link to="/">
-            <CIcon icon={logo} height={48} />
+            {/* <CIcon icon={logo} height={48} /> */}
           </Link>
         </CHeaderBrand>
 
