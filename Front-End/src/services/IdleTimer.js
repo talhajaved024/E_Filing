@@ -5,7 +5,7 @@ class IdleTimer extends Component {
   constructor(props) {
     super(props);
     this.timeout = null;
-    this.idleTime = 3 * 60 * 1000; // 10 minutes
+    this.idleTime = 0.3 * 60 * 1000; // 10 minutes
     this.events = ['mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'];
   }
 
