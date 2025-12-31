@@ -87,7 +87,7 @@ const ProjectRegistration = () => {
 
   const loadRoles = async () => {
     try {
-      const response = await axiosInstance.get('http://localhost:8080/Lookup/designation');
+      const response = await axiosInstance.get('http://13.219.180.255:8080/Lookup/designation');
       const rolesData = Array.isArray(response.data) ? response.data : [];
       setRoles(rolesData);
       return rolesData;

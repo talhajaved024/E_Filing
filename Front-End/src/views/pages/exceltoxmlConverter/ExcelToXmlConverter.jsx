@@ -193,10 +193,18 @@ setIsExpired(hasExpiredExcelToXml);
         await loadExcelFiles();
         await loadAvailableDates();
         
-      } catch (error) {
-        const errorMsg = error.response?.data || 'Failed to upload file';
-        setMessage({ type: 'danger', text: errorMsg });
-      } finally {
+      }  catch (error) {
+    // Extract the specific message string from the Spring error object
+    const errorMsg = error.response?.data?.message 
+                     || error.response?.data 
+                     || 'Failed to upload file';
+    
+    // Safety check: if errorMsg is still somehow an object, stringify it
+    setMessage({ 
+        type: 'danger', 
+        text: typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg 
+    });
+    } finally {
         setUploadLoading(false);
       }
     }

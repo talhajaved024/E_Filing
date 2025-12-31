@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-const API_URL = 'http://localhost:8080/api/bugs-reporting';
+const API_URL = 'http://13.219.180.255:8080/api/bugs-reporting';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -103,7 +103,7 @@ class AdminUserBugAssignment extends Component {
   fetchProjects = async () => {
     try {
       // Replace with your actual API endpoint to fetch projects
-      const response = await axiosInstance.get('http://localhost:8080/api/projects/getAllProjects');
+      const response = await axiosInstance.get('http://13.219.180.255:8080/api/projects/getAllProjects');
       const projectsData = response.data.map(project => ({
         id: project.id,
         name: project.projectName

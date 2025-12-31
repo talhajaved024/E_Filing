@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 
-const API_URL = 'http://localhost:8080/api/task-summary';
+const API_URL = 'http://13.219.180.255:8080/api/task-summary';
 const UserID = parseInt(sessionStorage.getItem("UserID"));
 const axiosInstance = axios.create({
   baseURL: API_URL,
