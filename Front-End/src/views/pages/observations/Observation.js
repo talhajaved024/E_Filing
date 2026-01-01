@@ -122,7 +122,7 @@ const Observations = () => {
 
   const loadProjectList = async () => {
     try {
-      const response = await axiosInstance.get('http://13.219.180.255:8080/api/projects/getAllProjects');
+      const response = await axiosInstance.get('https://spring-boot-backend.duckdns.org/api/projects/getAllProjects');
       setProjectList(response.data || []);
     } catch (error) {
       notify(`Error loading Observations List: ${error.message}`, 'error', 3000);

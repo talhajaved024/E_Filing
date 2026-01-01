@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 
-const API_URL = 'http://13.219.180.255:8080/api/bugs-reporting';
+const API_URL = 'https://spring-boot-backend.duckdns.org/api/bugs-reporting';
 //const UserID = parseInt(localStorage.getItem("UserID"));
 const axiosInstance = axios.create({
   baseURL: API_URL,
