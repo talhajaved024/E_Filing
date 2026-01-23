@@ -28,6 +28,8 @@ const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns')
 
 const EnableDisable = React.lazy(() => import('./views//pages/enableDisableExpiry/EnableDisableExpiry'))
 
+const FormWizard = React.lazy(()=> import('./views/pages/formWizard/FormWizard'))
+
 //Forms
 const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
 const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
@@ -139,7 +141,9 @@ const routes = [
   { path: '/projectRegistration', exact: true, name: 'Project Registration', element: projectRegistration },
   { path: '/userManagement', exact: true, name: 'User Management', element: UserManagement },
 
-   { path: '/enableDisable', exact: true, name: 'Enable Disable Expiry', element: EnableDisable },
+  { path: '/enableDisable', exact: true, name: 'Enable Disable Expiry', element: EnableDisable },
+  { path: '/formWizard', exact: true, name: 'Form Wizard', element: FormWizard },
+   
   
   
   { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },

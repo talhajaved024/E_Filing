@@ -1,6 +1,7 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilArrowThickFromBottom,
   cilBell,
   cilBriefcase,
   cilBug,
@@ -112,6 +113,16 @@ const _nav = [
     to: 'bugs/BugsReporting',
     icon: <CIcon icon={cilBug} customClassName="nav-icon" />,
   },
+
+
+  {
+    component: CNavItem,
+    name: 'Form Wizard',
+    to: 'formWizard',
+    icon: <CIcon icon={cilArrowThickFromBottom} customClassName="nav-icon" />,
+  },
+
+  
 
 
   {
