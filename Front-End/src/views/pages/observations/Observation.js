@@ -22,7 +22,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("refreshToken");
+    const token = sessionStorage.getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -292,28 +292,42 @@ const Observations = () => {
 
     if (e.dataField === "projectId") {
       e.editorOptions.onValueChanged = async (args) => {
-        e.setValue(args.value);
-        e.component.cellValue(e.row.rowIndex, "membersId", []);
+        // args.event is only set for a genuine user interaction — DevExtreme
+        // also fires this handler internally (with no event) while wiring up
+        // the row's editors, before this cell's editing bridge is ready,
+        // which crashes with "options.setValue is not a function" if we call
+        // e.setValue at that point. Ignore those programmatic triggers.
+        if (!args.event) return;
+        try {
+          e.setValue(args.value);
+          e.component.cellValue(e.row.rowIndex, "membersId", []);
 
-        if (args.value) {
-          let membersData = projectMembersCache.current[args.value];
-          
-          if (!membersData) {
-            try {
-              membersData = await loadMembersByProject(args.value);
-              projectMembersCache.current[args.value] = membersData;
-            } catch (err) {
-              console.error(err);
-              membersData = [];
+          if (args.value) {
+            let membersData = projectMembersCache.current[args.value];
+
+            if (!membersData) {
+              try {
+                membersData = await loadMembersByProject(args.value);
+                projectMembersCache.current[args.value] = membersData;
+              } catch (err) {
+                console.error(err);
+                membersData = [];
+              }
+            }
+
+            if (activeTagBoxRef.current) {
+              activeTagBoxRef.current.option("dataSource", membersData);
+            }
+          } else {
+            if (activeTagBoxRef.current) {
+              activeTagBoxRef.current.option("dataSource", []);
             }
           }
-
-          if (activeTagBoxRef.current) {
-            activeTagBoxRef.current.option("dataSource", membersData);
-          }
-        } else {
-          if (activeTagBoxRef.current) {
-            activeTagBoxRef.current.option("dataSource", []);
+        } catch (error) {
+          if (error.name === 'TypeError' && error.message.includes('setValue')) {
+            notify('This field is disabled and cannot be changed.', 'warning', 1500);
+          } else {
+            throw error;
           }
         }
       };
@@ -358,7 +372,19 @@ const Observations = () => {
       e.editorOptions.disabled = !currentProjectId;
 
       e.editorOptions.onValueChanged = (args) => {
-        e.setValue(args.value || []); 
+        // Same reasoning as the projectId handler above — skip programmatic
+        // value-changed events fired while DevExtreme initializes this
+        // (often disabled, no-project-selected) editor.
+        if (!args.event) return;
+        try {
+          e.setValue(args.value || []);
+        } catch (error) {
+          if (error.name === 'TypeError' && error.message.includes('setValue')) {
+            notify('This field is disabled and cannot be changed.', 'warning', 1500);
+          } else {
+            throw error;
+          }
+        }
       };
     }
   }, [loadMembersByProject]);

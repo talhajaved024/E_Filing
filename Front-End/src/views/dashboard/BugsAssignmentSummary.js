@@ -46,15 +46,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-
-const API_URL = 'https://spring-boot-backend.duckdns.org/api/bugs-reporting';
+const API_URL = `${process.env.REACT_APP_API_URL}`;
+//const API_URL = 'https://spring-boot-backend.duckdns.org/api/bugs-reporting';
 //const UserID = parseInt(localStorage.getItem("UserID"));
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("refreshToken");
+  const token = sessionStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 }, (err) => Promise.reject(err));
@@ -101,7 +101,7 @@ class BugsAssignmentSummary extends Component {
     this.setState({ loading: true });
     
     try {
-        const response = await axiosInstance.get(`/getAllSummaryBy/${memberId}/${selectedMonth}`);
+        const response = await axiosInstance.get(`api/bugs-reporting/getAllSummaryBy/${memberId}/${selectedMonth}`);
         const backendData = response.data;
 
         // Map backend → Rechart format

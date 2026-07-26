@@ -41,7 +41,7 @@ const AppHeaderDropdown: FC<AppHeaderDropdownProps> = ({ onLogout }) => {
     
     const loadUserImage = async () => {
       const userUniqueId = sessionStorage.getItem('userUniqueId');
-      const accessToken = sessionStorage.getItem('refreshToken');
+      const accessToken = sessionStorage.getItem('accessToken');
       
       //console.log(userUniqueId,+"--------------"+accessToken);
       

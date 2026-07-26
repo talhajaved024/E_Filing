@@ -6,6 +6,7 @@ import 'simplebar-react/dist/simplebar.min.css';
 import './App.css';
 import { AuthService } from './services/AuthService';
 import IdleTimer from './services/IdleTimer';
+import TokenRefresher from './services/TokenRefresher';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -67,9 +68,12 @@ class App extends Component<{}, AppState> {
 
     return (
       <>
-        {/* Idle timer active only when logged in */}
+        {/* Idle timer and background token refresh both active only when logged in */}
         {isAuthenticated && (
-          <IdleTimer onIdle={this.handleLogout} onVisibilityChange={this.handleIdleWarningVisibility} />
+          <>
+            <IdleTimer onIdle={this.handleLogout} onVisibilityChange={this.handleIdleWarningVisibility} />
+            <TokenRefresher onRefreshFailed={this.handleLogout} />
+          </>
         )}
 
         <div className={`app-shell${isIdleWarningVisible ? ' app-shell--dimmed' : ''}`}>

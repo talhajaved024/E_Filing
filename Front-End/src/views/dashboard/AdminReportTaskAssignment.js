@@ -8,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-// Custom Tooltip Animation
+
 const CustomTooltip = ({ active, payload, label }) => {
   return (
     <div
@@ -48,8 +48,8 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 
-const API_URL = `${process.env.REACT_APP_API_URL}/api/task-summary`;
-//const API_URL = '/api/task-summary';
+const API_URL = `${process.env.REACT_APP_API_URL}`;
+
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -57,7 +57,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("refreshToken");
+  const token = sessionStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 }, (err) => Promise.reject(err));
@@ -80,20 +80,20 @@ class AdminReportTaskAssignment extends Component {
       memberId: parseInt(sessionStorage.getItem("UserID")),
       selectedMonth: currentMonth,
       selectedDate: currentDate,
-      selectedProject: null, // New state for dropdown selection
-      projects: [], // Array to hold project options
+      selectedProject: null,
+      projects: [],
       chartData: [],
       loading: false,
     };
   }
 
   componentDidMount() {
-    this.fetchProjects(); // Fetch projects first
+    this.fetchProjects(); 
     this.fetchSummary();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Refetch when memberId, selectedMonth, OR selectedProject changes
+    
     if (prevProps.memberId !== this.props.memberId || 
         prevState.selectedMonth !== this.state.selectedMonth ||
         prevState.selectedProject !== this.state.selectedProject) {
@@ -101,10 +101,10 @@ class AdminReportTaskAssignment extends Component {
     }
   }
 
-  // Fetch available projects for dropdown
+ 
   fetchProjects = async () => {
     try {
-      // Replace with your actual API endpoint to fetch projects
+     
       const response = await axiosInstance.get('/api/projects/getAllProjects');
       const projectsData = response.data.map(project => ({
         id: project.id,
@@ -124,14 +124,14 @@ class AdminReportTaskAssignment extends Component {
   fetchSummary = async () => {
     const {  selectedMonth, selectedProject } = this.state;
     
-    // Don't fetch if no project selected
+  
     if (!selectedProject) return;
     
     this.setState({ loading: true });
     
     try {
-        // Updated API call to include projectId
-        const response = await axiosInstance.get(`/getAllTaskSummaryByProjectIdAndYearMonth/${selectedProject}/${selectedMonth}`
+      
+        const response = await axiosInstance.get(`/api/task-summary/getAllTaskSummaryByProjectIdAndYearMonth/${selectedProject}/${selectedMonth}`
         );
         const backendData = response.data;
 
@@ -166,7 +166,7 @@ class AdminReportTaskAssignment extends Component {
     }
   };
 
-  // Handler for project selection change
+
   handleProjectChange = (e) => {
     this.setState({ selectedProject: e.value });
   };

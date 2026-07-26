@@ -20,7 +20,7 @@ const axiosInstance = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("refreshToken");
+  const token = sessionStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 }, (err) => Promise.reject(err));
@@ -121,7 +121,7 @@ const BugsReporting = () => {
 
   const loadProjectList = async () => {
     try {
-      const response = await axiosInstance.get('https://spring-boot-backend.duckdns.org/api/projects/getAllProjects');
+      const response = await axiosInstance.get('/projects/getAllProjects');
       setProjectList(response.data || []);
     } catch (error) {
       notify(`Error loading Projects List: ${error.message}`, 'error', 3000);
@@ -509,10 +509,16 @@ const onEditorPreparing = useCallback((e) => {
     
 
     e.editorOptions.onValueChanged = async (args) => {
+      // args.event is only set for a genuine user interaction — DevExtreme
+      // also fires this handler internally (with no event) while wiring up
+      // the row's editors, before this cell's editing bridge is ready, which
+      // crashes with "options.setValue is not a function" if we call
+      // e.setValue at that point. Ignore those programmatic triggers.
+      if (!args.event) return;
       try {
-        
+
         e.setValue(args.value);
-        
+
         e.component.cellValue(e.row.rowIndex, "memberId", []);
 
         if (args.value) {
@@ -594,9 +600,13 @@ const onEditorPreparing = useCallback((e) => {
 
     
     e.editorOptions.onValueChanged = (args) => {
+      // Same reasoning as the projectId handler above — skip programmatic
+      // value-changed events fired while DevExtreme initializes this (often
+      // disabled, no-project-selected) editor.
+      if (!args.event) return;
       try {
-        
-         e.setValue(args.value || []); 
+
+         e.setValue(args.value || []);
       } catch (error) {
         
         if (error.name === 'TypeError' && error.message.includes('setValue')) {

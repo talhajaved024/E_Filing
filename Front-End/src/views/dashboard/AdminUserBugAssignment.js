@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-const API_URL = '${process.env.REACT_APP_API_URL}/api/bugs-reporting';
+ const API_URL = `${process.env.REACT_APP_API_URL}`;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -55,7 +55,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("refreshToken");
+  const token = sessionStorage.getItem("accessToken");
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 }, (err) => Promise.reject(err));
@@ -103,7 +103,7 @@ class AdminUserBugAssignment extends Component {
   fetchProjects = async () => {
     try {
       // Replace with your actual API endpoint to fetch projects
-      const response = await axiosInstance.get('/projects/getAllProjects');
+      const response = await axiosInstance.get('/api/projects/getAllProjects');
       const projectsData = response.data.map(project => ({
         id: project.id,
         name: project.projectName
@@ -130,7 +130,7 @@ class AdminUserBugAssignment extends Component {
     try {
         // Updated API call to include projectId
         const response = await axiosInstance.get(
-          `/getAllSummaryByProjectIdAndMonthYear/${selectedProject}/${selectedMonth}`
+          `api/bugs-reporting/getAllSummaryByProjectIdAndMonthYear/${selectedProject}/${selectedMonth}`
         );
         const backendData = response.data;
 

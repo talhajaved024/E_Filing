@@ -46,7 +46,7 @@ console.log(process.env.REACT_APP_API_URL);
   // Request Interceptor
   axiosInstance.interceptors.request.use(
     (config) => {
-      const token = sessionStorage.getItem("refreshToken");
+      const token = sessionStorage.getItem("accessToken");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

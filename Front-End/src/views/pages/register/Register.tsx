@@ -68,7 +68,7 @@ const Register: FC = () => {
 
   useEffect(() => {
     const fetchDropdownData = async () => {
-      const token = sessionStorage.getItem('refreshToken');
+      const token = sessionStorage.getItem('accessToken');
       
       try {
         const orgResponse = await axios.get(`${process.env.REACT_APP_API_URL}/Lookup/organizations`, {
@@ -137,11 +137,11 @@ const Register: FC = () => {
         formData.append('image', selectedImage);
         formData.append('userId', userUniqueId);
 
-        const refreshToken = sessionStorage.getItem("refreshToken");
+        const accessToken = sessionStorage.getItem("accessToken");
 
         await axios.post(`${process.env.REACT_APP_API_URL}/api/images/upload`, formData, {
           headers: {
-            "Authorization": `Bearer ${refreshToken}`,
+            "Authorization": `Bearer ${accessToken}`,
             'Content-Type': 'multipart/form-data',
           },
         });
