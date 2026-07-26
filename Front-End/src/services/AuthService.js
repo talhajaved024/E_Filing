@@ -13,22 +13,20 @@ export class AuthService {
       // This ensures tokens are cleared when browser closes
       sessionStorage.setItem("accessToken", response.data.accessToken);
       sessionStorage.setItem("refreshToken", response.data.refreshToken);
-      sessionStorage.setItem("sessionActive", "true");
-      
+
       // Also store in localStorage for refresh token rotation
       // (but don't use it for authentication check)
       localStorage.setItem("refreshToken", response.data.refreshToken);
-      
+
       setAuthToken(response.data.accessToken);
     }
     return response.data;
   }
 
   /**
-   * Logout user
-   * @param {boolean} triggeredByClose - true if logout is triggered by browser/tab close
+   * Logout user (manual logout button, or idle-timeout auto logout)
    */
-  static logout(triggeredByClose = false) {
+  static logout() {
     const accessToken = sessionStorage.getItem("accessToken");
     const refreshToken = sessionStorage.getItem("refreshToken") || localStorage.getItem("refreshToken");
     const logoutUrl = `${process.env.REACT_APP_API_URL}/api/auth/logout`;
@@ -38,47 +36,24 @@ export class AuthService {
       return;
     }
 
-    if (triggeredByClose) {
-      // Browser/tab is closing - use synchronous request
-      const payload = JSON.stringify({ refreshToken: refreshToken });
-      
-      try {
-        // Use synchronous XHR - most reliable for browser close
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', logoutUrl, false); // false = synchronous
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        if (accessToken) {
-          xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
-        }
-        xhr.send(payload);
-      } catch (err) {
-        console.error("Logout on close failed:", err);
-      }
-      
-      // Clear all storage
-      this.clearAllStorage();
-      
-    } else {
-      // Manual logout - clear storage first, then make async request
-      this.clearAllStorage();
-      
-      // Make async logout request
-      fetch(logoutUrl, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refreshToken }),
+    // Clear storage first, then make the async request
+    this.clearAllStorage();
+
+    fetch(logoutUrl, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ refreshToken }),
+    })
+      .then(() => {
+        window.location.href = "/#/login";
       })
-        .then(() => {
-          window.location.href = "/#/login";
-        })
-        .catch((err) => {
-          console.error("Manual logout failed:", err);
-          window.location.href = "/#/login";
-        });
-    }
+      .catch((err) => {
+        console.error("Logout failed:", err);
+        window.location.href = "/#/login";
+      });
   }
 
   /**

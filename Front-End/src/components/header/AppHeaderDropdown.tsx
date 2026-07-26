@@ -21,18 +21,20 @@ import {
   cilUser,
 } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import none_avatar from './../../assets/images/avatars/10.png';
-import { AuthService } from '../../services/AuthService';
 
 const API_BASE_URL = `${process.env.REACT_APP_API_URL}/api/images`;
 const userName = sessionStorage.getItem("userName");
-const AppHeaderDropdown: FC = () => {
+
+interface AppHeaderDropdownProps {
+  onLogout: () => void;
+}
+
+const AppHeaderDropdown: FC<AppHeaderDropdownProps> = ({ onLogout }) => {
   const [imageUrl, setImageUrl] = useState<string>(none_avatar);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     //console.log(userName);
@@ -71,45 +73,19 @@ const AppHeaderDropdown: FC = () => {
     };
   }, []);
 
-  const handleLogout = async (event: React.MouseEvent) => {
+  const handleLogout = (event: React.MouseEvent) => {
     event.preventDefault();
     event.stopPropagation();
-    
+
     if (isLoggingOut) return; // Prevent multiple clicks
-    
+
     setIsLoggingOut(true);
 
-    try {
-      // Create a timeout promise to avoid hanging
-      const logoutPromise = AuthService.logout();
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Logout timeout')), 5000)
-      );
-
-      // Race between logout and timeout
-      await Promise.race([logoutPromise, timeoutPromise]);
-      
-    } catch (err) {
-      console.error('Logout API call failed or timed out:', err);
-      // Continue with cleanup even if API fails
-    } finally {
-      // Always perform cleanup
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('userUniqueId');
-
-      sessionStorage.removeItem('accessToken');
-      sessionStorage.removeItem('refreshToken');
-      sessionStorage.removeItem('userUniqueId');
-      
-      // Clear any session storage as well
-      sessionStorage.clear();
-      
-      // Use window.location for guaranteed navigation
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 100);
-    }
+    // Delegate to App.tsx's handleLogout — it's the single source of truth
+    // for auth state (AuthService.logout() + isAuthenticated = false), which
+    // re-renders <Routes> to the login screen immediately. No local storage
+    // clearing or hard window.location redirect needed here anymore.
+    onLogout();
   };
 
   return (

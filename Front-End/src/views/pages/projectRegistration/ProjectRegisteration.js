@@ -87,7 +87,7 @@ const ProjectRegistration = () => {
 
   const loadRoles = async () => {
     try {
-      const response = await axiosInstance.get('https://spring-boot-backend.duckdns.org/Lookup/designation');
+      const response = await axiosInstance.get('/Lookup/designation');
       const rolesData = Array.isArray(response.data) ? response.data : [];
       setRoles(rolesData);
       return rolesData;

@@ -55,8 +55,7 @@ class LoginForm extends Component {
       sessionStorage.setItem("adminUser", adminUser);
       sessionStorage.setItem("UserID", userID);
       sessionStorage.setItem("userName", userName);
-      sessionStorage.setItem("sessionActive", "true");
-      
+
       // Save refresh token to localStorage for token rotation
       localStorage.setItem("refreshToken", refreshToken);
 

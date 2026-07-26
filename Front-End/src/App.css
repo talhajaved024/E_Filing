@@ -2,6 +2,20 @@
   text-align: center;
 }
 
+/* Dims the whole app to grayscale behind the idle-timeout warning modal.
+   CModal renders via a portal straight to document.body, so it sits outside
+   this wrapper and stays in full color while the app behind it fades out. */
+.app-shell {
+  filter: grayscale(0) brightness(1);
+  transition: filter 600ms ease;
+}
+
+.app-shell--dimmed {
+  filter: grayscale(1) brightness(0.7);
+  pointer-events: none;
+  transition: filter 600ms ease;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

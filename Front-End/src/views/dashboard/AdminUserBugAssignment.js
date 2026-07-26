@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   );
 };
 
-const API_URL = 'https://spring-boot-backend.duckdns.org/api/bugs-reporting';
+const API_URL = '${process.env.REACT_APP_API_URL}/api/bugs-reporting';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -103,7 +103,7 @@ class AdminUserBugAssignment extends Component {
   fetchProjects = async () => {
     try {
       // Replace with your actual API endpoint to fetch projects
-      const response = await axiosInstance.get('https://spring-boot-backend.duckdns.org/api/projects/getAllProjects');
+      const response = await axiosInstance.get('/projects/getAllProjects');
       const projectsData = response.data.map(project => ({
         id: project.id,
         name: project.projectName

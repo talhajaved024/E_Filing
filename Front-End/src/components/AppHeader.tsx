@@ -10,10 +10,15 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
-
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownHeader,
+  CDropdownItem,
+  CBadge
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {cilList, cilMenu } from '@coreui/icons'
+import {cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
 
 // Custom components
 import { AppBreadcrumb } from './index'
@@ -26,7 +31,11 @@ import { setSidebarState } from '../store'
 import AppHeaderDropdownMessage from './AppHeaderDropDownMessage'
 import AppHeaderDropdownNotifications from './AppHeaderDropdownNotifications'
 
-const AppHeader: React.FC = () => {
+interface AppHeaderProps {
+  onLogout: () => void;
+}
+
+const AppHeader: React.FC<AppHeaderProps> = ({ onLogout }) => {
   const dispatch = useDispatch<AppDispatch>()
   const sidebarShow = useSelector((state: RootState) => state.sidebar.sidebarShow)
 const preventReload = (e: React.MouseEvent) => e.preventDefault()
@@ -52,7 +61,7 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
 
         {/* Below Commented for Excel to  XML Conversion Project*/}
 
-        {/* <CHeaderNav className="d-none d-md-flex me-auto">
+        <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>
               Dashboard
@@ -64,13 +73,13 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
           <CNavItem>
             <CNavLink href="#">Settings</CNavLink>
           </CNavItem>
-        </CHeaderNav> */}
+        </CHeaderNav>
 
         {/* Above Commented for Excel to  XML Conversion Project*/}
 
         {/* Header icons */}
-        {/* <CHeaderNav>
-          <CNavItem>
+        <CHeaderNav>
+          {/* <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
             </CNavLink>
@@ -79,8 +88,8 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
             <CNavLink href="#">
               <CIcon icon={cilList} size="lg" />
             </CNavLink>
-          </CNavItem>
-          <CNavItem> */}
+          </CNavItem> */}
+          <CNavItem>
             {/* <CDropdown variant="nav-item">
       <CDropdownToggle caret={false} className="py-0">
         <CIcon icon={cilEnvelopeOpen} size="lg" />
@@ -97,17 +106,17 @@ const preventReload = (e: React.MouseEvent) => e.preventDefault()
         <CDropdownItem onClick={preventReload}>Weekly report</CDropdownItem>
       </CDropdownMenu>
     </CDropdown> */}
-          {/* </CNavItem>
-        </CHeaderNav> */}
+           </CNavItem>
+         </CHeaderNav> 
 
         {/* Profile Dropdown */}
         <CHeaderNav className="ms-2 align-items-center gap-1">
-          {/* <AppHeaderDropdownNotifications></AppHeaderDropdownNotifications> */}
+          <AppHeaderDropdownNotifications></AppHeaderDropdownNotifications>
           {/* <CNavLink href="#">
               <CIcon icon={cilList} size="lg" />
             </CNavLink> */}
           {/* <AppHeaderDropdownMessage/> */}
-          <AppHeaderDropdown />
+          <AppHeaderDropdown onLogout={onLogout} />
         </CHeaderNav>
       </CContainer>
 

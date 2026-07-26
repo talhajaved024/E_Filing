@@ -107,7 +107,7 @@ const TaskAssignment = () => {
 
   const loadProjectList = async () => {
     try {
-      const response = await axiosInstance.get('https://spring-boot-backend.duckdns.org/api/projects/getAllProjects');
+      const response = await axiosInstance.get('/projects/getAllProjects');
       setProjectList(response.data || []);
     } catch (error) {
       notify(`Error loading Projects List: ${error.message}`, 'error', 3000);
